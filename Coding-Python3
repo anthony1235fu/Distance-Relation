@@ -1,0 +1,57 @@
+def located():
+    x1,y1 = eval(input('the first center'))
+    x2,y2 = eval(input('the second center'))
+    length1, width1 = eval(input('the first one side'))
+    length2, width2 = eval(input('the second one side'))
+    # 获得输入的数据
+
+    import turtle
+    turtle.penup()
+    turtle.goto(x1,y1)
+    turtle.write(x1,y1)
+    turtle.goto(x1-length1/2, y1-width1/2)
+    turtle.color('blue')
+    turtle.pendown()
+    turtle.goto(x1-length1/2, y1+width1/2)
+    turtle.goto(x1+length1/2, y1+width1/2)
+    turtle.goto(x1+length1/2, y1-width1/2)
+    turtle.goto(x1-length1/2, y1-width1/2)
+    # 绘制第一个长方形
+
+    turtle.penup()
+    turtle.goto(x2,y2)
+    turtle.write(x2,y2)
+    turtle.goto(x2-length2/2, y2-width2/2)
+    turtle.color('green')
+    turtle.pendown()
+    turtle.goto(x2-length2/2, y2+width2/2)
+    turtle.goto(x2+length2/2, y2+width2/2)
+    turtle.goto(x2+length2/2, y2-width2/2)
+    turtle.goto(x2-length2/2, y2-width2/2)
+    # 绘制第二个长方形
+    
+    import math
+    distance_x = math.fabs(x2 - x1)
+    distance_y = math.fabs(x2 - x1)
+    sx = x1 if x1 < x2 else x2
+    sy = y1 if y1 < y2 else y2
+    # 计算两个中间之间的间距，还有哪个长方形比较短/窄
+
+    
+    if distance_x == (length1 + length2) / 2 or distance_y == (width1 + width2) / 2:
+        print('相切')
+    elif distance_x > (length1 + length2) / 2 or distance_y > (width1 + width2) / 2:
+        print('远离')
+    elif distance_x < (length1 + length2) / 2 and distance_x > math.fabs(length1 - length2) / 2:
+        if distance_y < (width1 + width2) / 2 and distance_y > math.fabs(width1 - width2) / 2:
+            area = ((length1 + length2) / 2 - distance_x) * ((width1 + width2) / 2 - distance_y)
+        elif distance_y <= math.fabs(width1 - width2) / 2:
+            area = ((length1 + length2) / 2 - distance_x) * sy
+        print('重叠，重叠面积为',area)
+    elif distance_x <= math.fabs(length1 - length2) / 2 and distance_y < (width1 + width2) / 2 and distance_y > math.fabs(width1 - width2) / 2:
+        area = ((width1 + width2) / 2 - distance_y) * sx
+        print('重叠，重叠面积为',area)
+    else:
+        print('包含关系')
+
+located()
